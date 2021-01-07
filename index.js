@@ -22,9 +22,7 @@ const takeBorder = async (city) => {
   await delay(2000);
   const cityOSMid = await findCityOSMid(city);
 
-  const borderUrl = encodeURI(
-    `https://polygons.openstreetmap.fr/get_geojson.py?id=${cityOSMid}&params=0`
-  );
+  const borderUrl = encodeURI(`https://polygons.openstreetmap.fr/get_geojson.py?id=${cityOSMid}&params=0`);
 
   const response = await fetch(borderUrl);
 
@@ -53,9 +51,10 @@ const makeGeoJson = async (filePath) => {
     boundaries = boundary ? { ...boundaries, [city]: boundary } : boundaries;
   }
 
-  await fs.writeFile(`./geojsons/boundaries.json`, JSON.stringify(boundaries), (err) => {
+  await fs.writeFile(`boundaries.json`, JSON.stringify(boundaries), (err) => {
     if (err) throw err;
     console.log('The file has been saved!');
   });
 };
+
 makeGeoJson('cities.txt');
